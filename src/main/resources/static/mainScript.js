@@ -71,7 +71,11 @@ const removeUserById = async (id) => {
     const response = await fetch(url, {
         method: 'DELETE'
     });
-    return await response.json();
+
+    if (response.ok) {
+        return await response.json();
+    }
+    return null;
 }
 
 const editUser = async (user) => {
@@ -151,7 +155,7 @@ $('#table-content').on("click", ".deleteButton", async function () {
     const age = $('.age', targetRow).text();
     const email = $('.email', targetRow).text();
     const roles = $('.roles', targetRow).text();
-    console.log('roles: ' + roles);
+
     const modalDeleteWindow = $('#dynamicDeleteModalWindowContent');
     $('#idDeleteDynamic', modalDeleteWindow).val(id);
     $('#firstNameDeleteDynamic', modalDeleteWindow).val(firstName);
@@ -169,9 +173,15 @@ $('#userDeleteDynamic').on("click", "#deleteConfirm", async function () {
     const modalDeleteWindow = $('#dynamicDeleteModalWindowContent');
     const id = $('#idDeleteDynamic', modalDeleteWindow).val();
 
-    const msg = await removeUserById(id);
-    const trId = '#trId' + id;
-    $(trId).remove();
+
+    const result = await removeUserById(id);
+    if (result !== null) {
+        const trId = '#trId' + id;
+        $(trId).remove();
+    } else {
+        alert('something wrong with deleting');
+    }
+
 })
 
 

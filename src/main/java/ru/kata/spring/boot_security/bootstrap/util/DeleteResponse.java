@@ -1,8 +1,12 @@
 package ru.kata.spring.boot_security.bootstrap.util;
 
-public class JsonResponse {
+public class DeleteResponse {
     private String msg;
-    private boolean ok;
+
+    public DeleteResponse(String msg) {
+        this.msg = msg;
+    }
+
 
     public String getMsg() {
         return msg;
@@ -12,11 +16,4 @@ public class JsonResponse {
         this.msg = msg;
     }
 
-    public boolean isOk() {
-        return ok;
-    }
-
-    public void setOk(boolean ok) {
-        this.ok = ok;
-    }
 }
